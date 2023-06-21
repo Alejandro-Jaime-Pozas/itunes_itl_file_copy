@@ -1,4 +1,4 @@
-import shutil, time, psutil, os
+import shutil, time, psutil, os, datetime
 
 source_dir = "C:\\Users\\Propietario\\OneDrive\\Music\\iTunes"
 destination_dir = "C:\\Users\\Propietario\\OneDrive\\Music\\iTunes library backup"
@@ -6,10 +6,12 @@ destination_dir = "C:\\Users\\Propietario\\OneDrive\\Music\\iTunes library backu
 
 def copy_file():
     file_to_copy = "iTunes Library.itl.itl" 
+    timestamp = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
+    new_file_name = f"{timestamp}_{file_to_copy}"
     source_path = os.path.join(source_dir, file_to_copy)
-    destination_path = os.path.join(destination_dir, file_to_copy)
+    destination_path = os.path.join(destination_dir, new_file_name)
     shutil.copy2(source_path, destination_path)
-    print(f'File copied: {file_to_copy}')
+    print(f'File copied: {new_file_name}')
 
 def delete_oldest_file():
     files = os.listdir(destination_dir)
@@ -35,6 +37,7 @@ while True:
         print('itunes is no longer running')
         if not already_copied:
             copy_file()
+            delete_oldest_file()
             already_copied = True
         # THIS DIDN'T WORK:
         # timestamp = os.path.getmtime("C:\\Users\\Propietario\\OneDrive\\Music\\iTunes\\iTunes Library.itl.itl")
