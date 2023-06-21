@@ -1,0 +1,1 @@
+python "C:\\Users\\Propietario\\OneDrive\\Coding\\Applications\\itunes_itl_file_copy\\script.py"
